@@ -1,0 +1,34 @@
+_portada:
+     path:     /
+     defaults: { _controller: FrameworkBundle:Redirect:redirect, route: portada, ciudad: '%cupon.ciudad_por_defecto%' }
+ 
+# Ruta de la portada completa del sitio (con _locale y el slug de la ciudad)
+portada:
+    path:     /{ciudad}
+    defaults: { _controller: OfertaBundle:Default:portada }
+
+ciudad_cambiar:
+    pattern:  /ciudad/cambiar-a-{ciudad}
+    defaults: { _controller: CiudadBundle:Default:cambiar }
+    requirements:
+        ciudad:  .+
+
+pagina_estatica:
+    path:     /sitio/{pagina}
+    defaults: { _controller: OfertaBundle:Sitio:estatica }
+    
+_pagina_estatica:
+    path:  /sitio/{pagina}/
+    defaults: { _controller: FrameworkBundle:Redirect:redirect, route: pagina_estatica, permanent: true }
+    
+oferta:
+    path:     /{ciudad}/ofertas/{slug}
+    defaults: { _controller: OfertaBundle:Default:oferta }
+
+ciudad_recientes:
+    path:     /{ciudad}/recientes
+    defaults: { _controller: CiudadBundle:Default:recientes }
+    
+tienda_portada:
+    path:     /{ciudad}/tiendas/{tienda}
+    defaults: { _controller: TiendaBundle:Default:portada }
