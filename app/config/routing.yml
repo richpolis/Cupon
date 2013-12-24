@@ -32,3 +32,7 @@ ciudad_recientes:
 tienda_portada:
     path:     /{ciudad}/tiendas/{tienda}
     defaults: { _controller: TiendaBundle:Default:portada }
+    
+UsuarioBundle:
+    resource: "@UsuarioBundle/Resources/config/routing.yml"
+    prefix:   /usuario
