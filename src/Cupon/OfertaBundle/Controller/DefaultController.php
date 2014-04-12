@@ -19,7 +19,7 @@ class DefaultController extends Controller
                 'No se ha encontrado la oferta del día'
             );
         }
- 
+
         return $this->render('OfertaBundle:Default:portada.html.twig', array(
             'oferta' => $oferta,
             'ciudad' => $ciudad,
