@@ -3,17 +3,12 @@
 namespace Cupon\OfertaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-use Cupon\OfertaBundle\Util\Util;
-
-use Gedmo\Mapping\Annotation as Gedmo;
-use Gedmo\Translatable\Translatable;
 
 /**
  * Oferta
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Cupon\OfertaBundle\Entity\OfertaRepository")
+ * @ORM\Entity
  */
 class Oferta
 {
@@ -30,8 +25,6 @@ class Oferta
      * @var string
      *
      * @ORM\Column(name="nombre", type="string", length=255)
-     * @Gedmo\Translatable
-     * @Assert\NotBlank()
      */
     private $nombre;
 
@@ -46,9 +39,6 @@ class Oferta
      * @var string
      *
      * @ORM\Column(name="descripcion", type="text")
-     * @Gedmo\Translatable
-     * @Assert\NotBlank()
-     * @Assert\Length(min = "30", minMessage = "Your first name must be at least {{ limit }} characters length")
      */
     private $descripcion;
 
@@ -115,20 +105,10 @@ class Oferta
     private $revisada;
 
     /** @ORM\ManyToOne(targetEntity="Cupon\CiudadBundle\Entity\Ciudad") */
-    private $ciudad;
+    private $cuidad;
 
     /** @ORM\ManyToOne(targetEntity="Cupon\TiendaBundle\Entity\Tienda") */
     private $tienda;
-    
-    /**
-     * @Gedmo\Locale
-     */
-    private $locale;
- 
-    public function setTranslatableLocale($locale)
-    {
-        $this->locale = $locale;
-    }
 
     public function __toString()
     {
@@ -156,7 +136,7 @@ class Oferta
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
-        $this->slug = Util::getSlug($nombre);
+    
         return $this;
     }
 
@@ -409,26 +389,26 @@ class Oferta
     }
 
     /**
-     * Set ciudad
+     * Set cuidad
      *
-     * @param \Cupon\CiudadBundle\Entity\Ciudad $ciudad
+     * @param \Cupon\CiudadBundle\Entity\Ciudad $cuidad
      * @return Oferta
      */
-    public function setCiudad(\Cupon\CiudadBundle\Entity\Ciudad $ciudad = null)
+    public function setCuidad(\Cupon\CiudadBundle\Entity\Ciudad $cuidad = null)
     {
-        $this->ciudad = $ciudad;
+        $this->cuidad = $cuidad;
     
         return $this;
     }
 
     /**
-     * Get ciudad
+     * Get cuidad
      *
      * @return \Cupon\CiudadBundle\Entity\Ciudad 
      */
-    public function getCiudad()
+    public function getCuidad()
     {
-        return $this->ciudad;
+        return $this->cuidad;
     }
 
     /**
@@ -452,28 +432,5 @@ class Oferta
     public function getTienda()
     {
         return $this->tienda;
-    }
-
-    /**
-     * Set umbral
-     *
-     * @param integer $umbral
-     * @return Oferta
-     */
-    public function setUmbral($umbral)
-    {
-        $this->umbral = $umbral;
-    
-        return $this;
-    }
-
-    /**
-     * Get umbral
-     *
-     * @return integer 
-     */
-    public function getUmbral()
-    {
-        return $this->umbral;
     }
 }

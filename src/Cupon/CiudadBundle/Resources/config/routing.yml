@@ -1,6 +1,8 @@
-ciudad_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: CiudadBundle:Default:index }
+ciudad_cambiar:
+    pattern:  /ciudad/cambiar-a-{ciudad}
+    defaults: { _controller: CiudadBundle:Default:cambiar }
+    requirements:
+        ciudad:  .+
 
 ciudad_recientes:
     path:     /{ciudad}/recientes.{_format}

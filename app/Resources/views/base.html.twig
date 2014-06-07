@@ -1,23 +1,36 @@
 {# app/Resources/views/base.html.twig #} 
 <!DOCTYPE html>
 <html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>{% block title %}{% endblock %} | Cupon</title>
-    {% block stylesheets %}{% endblock %}
-    {% block rss %}{% endblock %}
-</head>
-<body id="{% block id '' %}"><div id="contenedor">
-    {% block body %}{% endblock %}
- 
-    <footer>
-        &copy; {{ 'now' | date('Y') }} - Cupon
-        <a href="{{ path('pagina_estatica', { 'pagina': 'ayuda' }) }}">Ayuda</a>
-        <a href="{{ path('pagina_estatica', { 'pagina': 'contacto' }) }}">Contacto</a>
-        <a href="{{ path('pagina_estatica', { 'pagina': 'privacidad' }) }}">Privacidad</a>
-        <a href="{{ path('pagina_estatica', { 'pagina': 'sobre-nosotros' }) }}">Sobre nosotros</a>
-    </footer>
- 
-    {% block javascripts %}{% endblock %}
-</div></body>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>{% block title %}{% endblock %} | Cupon</title>
+        {% block stylesheets %}{% endblock %}
+        {% block rss %}{% endblock %}
+    </head>
+    <body id="{% block id '' %}">
+        <div id="contenedor">
+            {% block body %}{% endblock %}
+            <footer>
+                &copy; {{ 'now' | date('Y') }} - Cupon
+                <a href="{{ path('pagina_estatica', { 'pagina': 'ayuda' }) }}">{{ "Ayuda" | trans }}</a>
+                <a href="{{ path('pagina_estatica', { 'pagina': 'contacto' }) }}">{{ "Contacto" | trans }}</a>
+                <a href="{{ path('pagina_estatica', { 'pagina': 'privacidad' }) }}">{{ "Privacidad" | trans }}</a>
+                <a href="{{ path('pagina_estatica', { 'pagina': 'sobre-nosotros' }) }}">{{ "Sobre nosotros" | trans }}</a>
+
+                {% set locale = app.request.locale %}
+                {% set ciudadSeleccionada = app.request.attributes.get('ciudad', ciudad_por_defecto) %}    
+
+                {% if locale == 'es' %}
+                    <span>Español</span>
+                    <a href="{{ path('portada', { '_locale': 'en', 'ciudad': ciudadSeleccionada }) }}">English</a>
+                {% elseif locale == 'en' %}
+                    <a href="{{ path('portada', { '_locale': 'es', 'ciudad': ciudadSeleccionada }) }}">Español</a>
+                    <span>English</span>
+                {% endif %}    
+
+            </footer>
+
+            {% block javascripts %}{% endblock %}
+        </div>
+    </body>
 </html>
