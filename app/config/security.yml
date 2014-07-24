@@ -1,29 +1,42 @@
 # app/config/security.yml
+
 security:
-    
     firewalls:
+        extranet:
+            pattern:        ^/extranet
+            provider:       tiendas
+            anonymous:      ~
+            form_login:
+                login_path: /extranet/login
+                check_path: /extranet/login_check
+            logout:
+                path:       extranet_logout
         frontend:
-            pattern:     ^/*
-            anonymous:   ~
+            pattern:        ^/*
+            provider:       usuarios
+            anonymous:      ~
             form_login:
                 login_path: usuario_login
                 check_path: usuario_login_check
-                default_target_path: /usuario/compras
             logout:
-                path:   usuario_logout
-                target: /sitio/vuelve-pronto
+                path:       usuario_logout
             remember_me:
-                key:      cupon1234
-                lifetime: 3600
+                key:        cupon1234
+                lifetime:   604800    # 7 * 24 * 3600 = 604.800 = 1 semana
     
     access_control:
         - { path: ^/(es|en)/usuario/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/(es|en)/usuario/registro, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/(es|en)/usuario/*, roles: ROLE_USUARIO }
+        - { path: ^/extranet/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/extranet/*, roles: ROLE_TIENDA }
     
     providers:
         usuarios:
             entity: { class: Cupon\UsuarioBundle\Entity\Usuario, property: email }
+        tiendas:
+            entity: { class: Cupon\TiendaBundle\Entity\Tienda, property: login }
     
     encoders:
         Cupon\UsuarioBundle\Entity\Usuario: { algorithm: sha512, iterations: 10 }
+        Cupon\TiendaBundle\Entity\Tienda: { algorithm: sha512, iterations: 10 }

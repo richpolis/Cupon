@@ -69,14 +69,14 @@ swiftmailer:
     username:  %mailer_user%
     password:  %mailer_password%
     spool:     { type: memory }
-    
+
 stof_doctrine_extensions:
     default_locale:       es
     translation_fallback: true
     orm:
         default:
             translatable: true
-            
+
 parameters:
     cupon.ciudad_por_defecto: 'barcelona'
     cupon.directorio.imagenes: %kernel.root_dir%/../web/uploads/images/

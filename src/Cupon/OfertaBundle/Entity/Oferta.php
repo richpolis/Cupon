@@ -1,146 +1,165 @@
 <?php
 
+/*
+ * (c) Javier Eguiluz <javier.eguiluz@gmail.com>
+ *
+ * Este archivo pertenece a la aplicación de prueba Cupon.
+ * El código fuente de la aplicación incluye un archivo llamado LICENSE
+ * con toda la información sobre el copyright y la licencia.
+ */
+
 namespace Cupon\OfertaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Cupon\OfertaBundle\Util\Util;
 
-use Gedmo\Mapping\Annotation as Gedmo;
-use Gedmo\Translatable\Translatable;
-
 /**
- * Oferta
- *
- * @ORM\Table()
  * @ORM\Entity(repositoryClass="Cupon\OfertaBundle\Entity\OfertaRepository")
  */
 class Oferta
 {
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
+     * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
-     * @var string
+     * @ORM\Column(type="string")
      *
-     * @ORM\Column(name="nombre", type="string", length=255)
-     * @Gedmo\Translatable
      * @Assert\NotBlank()
      */
-    private $nombre;
+    protected $nombre;
 
     /**
-     * @var string
+     * @ORM\Column(type="string")
      *
-     * @ORM\Column(name="slug", type="string", length=255)
-     */
-    private $slug;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="descripcion", type="text")
-     * @Gedmo\Translatable
      * @Assert\NotBlank()
-     * @Assert\Length(min = "30", minMessage = "Your first name must be at least {{ limit }} characters length")
      */
-    private $descripcion;
+    protected $slug;
 
     /**
-     * @var string
+     * @ORM\Column(type="text")
      *
-     * @ORM\Column(name="condiciones", type="text")
+     * @Assert\NotBlank()
+     * @Assert\Length(min = 30)
      */
-    private $condiciones;
+    protected $descripcion;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="ruta_foto", type="string", length=255)
+     * @ORM\Column(type="text")
      */
-    private $rutaFoto;
+    protected $condiciones;
 
     /**
-     * @var float
-     *
-     * @ORM\Column(name="precio", type="decimal")
+     * @ORM\Column(type="string", name="ruta_foto")
      */
-    private $precio;
+    protected $rutaFoto;
 
     /**
-     * @var float
-     *
-     * @ORM\Column(name="descuento", type="decimal")
+     * @Assert\Image(maxSize = "500k")
      */
-    private $descuento;
+    protected $foto;
 
     /**
-     * @var \DateTime
+     * @ORM\Column(type="decimal", scale=2)
      *
-     * @ORM\Column(name="fecha_publicacion", type="datetime")
+     * @Assert\Range(min = 0)
      */
-    private $fechaPublicacion;
+    protected $precio;
 
     /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="fecha_expiracion", type="datetime")
+     * @ORM\Column(type="decimal", scale=2)
      */
-    private $fechaExpiracion;
+    protected $descuento;
 
     /**
-     * @var integer
+     * @ORM\Column(type="datetime", nullable=true, name="fecha_publicacion")
      *
-     * @ORM\Column(name="compras", type="integer")
+     * @Assert\DateTime
      */
-    private $compras;
-    
+    protected $fechaPublicacion;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true, name="fecha_expiracion")
+     *
+     * @Assert\DateTime
+     */
+    protected $fechaExpiracion;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $compras;
+
     /**
      * @ORM\Column(type="integer")
      *
+     * @Assert\Type(type="integer")
+     * @Assert\Range(min = 0)
      */
     protected $umbral;
 
     /**
-     * @var boolean
+     * @ORM\Column(type="boolean")
      *
-     * @ORM\Column(name="revisada", type="boolean")
+     * @Assert\Type(type="bool")
      */
-    private $revisada;
+    protected $revisada;
 
-    /** @ORM\ManyToOne(targetEntity="Cupon\CiudadBundle\Entity\Ciudad") */
-    private $ciudad;
-
-    /** @ORM\ManyToOne(targetEntity="Cupon\TiendaBundle\Entity\Tienda") */
-    private $tienda;
-    
     /**
-     * @Gedmo\Locale
+     * @ORM\ManyToOne(targetEntity="Cupon\CiudadBundle\Entity\Ciudad")
      */
-    private $locale;
- 
-    public function setTranslatableLocale($locale)
-    {
-        $this->locale = $locale;
-    }
+    protected $ciudad;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Cupon\TiendaBundle\Entity\Tienda")
+     */
+    protected $tienda;
 
     public function __toString()
     {
         return $this->getNombre();
     }
-    
-    
+
+    /**
+     * @Assert\True(message = "La fecha de expiración debe ser posterior a la fecha de publicación")
+     */
+    public function isFechaValida()
+    {
+        if ($this->fechaPublicacion == null || $this->fechaExpiracion == null) {
+            return true;
+        }
+
+        return $this->fechaExpiracion > $this->fechaPublicacion;
+    }
+
+    /**
+     * Sube la foto de la oferta copiándola en el directorio que se indica y
+     * guardando en la entidad la ruta hasta la foto
+     *
+     * @param string $directorioDestino Ruta completa del directorio al que se sube la foto
+     */
+    public function subirFoto($directorioDestino)
+    {
+        if (null === $this->getFoto()) {
+            return;
+        }
+
+        $nombreArchivoFoto = uniqid('cupon-').'-1.'.$this->getFoto()->guessExtension();
+
+        $this->getFoto()->move($directorioDestino, $nombreArchivoFoto);
+
+        $this->setRutaFoto($nombreArchivoFoto);
+    }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -151,19 +170,17 @@ class Oferta
      * Set nombre
      *
      * @param string $nombre
-     * @return Oferta
      */
     public function setNombre($nombre)
     {
         $this->nombre = $nombre;
         $this->slug = Util::getSlug($nombre);
-        return $this;
     }
 
     /**
      * Get nombre
      *
-     * @return string 
+     * @return string
      */
     public function getNombre()
     {
@@ -174,19 +191,16 @@ class Oferta
      * Set slug
      *
      * @param string $slug
-     * @return Oferta
      */
     public function setSlug($slug)
     {
         $this->slug = $slug;
-    
-        return $this;
     }
 
     /**
      * Get slug
      *
-     * @return string 
+     * @return string
      */
     public function getSlug()
     {
@@ -196,20 +210,17 @@ class Oferta
     /**
      * Set descripcion
      *
-     * @param string $descripcion
-     * @return Oferta
+     * @param text $descripcion
      */
     public function setDescripcion($descripcion)
     {
         $this->descripcion = $descripcion;
-    
-        return $this;
     }
 
     /**
      * Get descripcion
      *
-     * @return string 
+     * @return text
      */
     public function getDescripcion()
     {
@@ -219,20 +230,17 @@ class Oferta
     /**
      * Set condiciones
      *
-     * @param string $condiciones
-     * @return Oferta
+     * @param text $condiciones
      */
     public function setCondiciones($condiciones)
     {
         $this->condiciones = $condiciones;
-    
-        return $this;
     }
 
     /**
      * Get condiciones
      *
-     * @return string 
+     * @return text
      */
     public function getCondiciones()
     {
@@ -242,51 +250,57 @@ class Oferta
     /**
      * Set rutaFoto
      *
-     * @param string $rutaFoto
-     * @return Oferta
+     * @param string $foto
      */
     public function setRutaFoto($rutaFoto)
     {
         $this->rutaFoto = $rutaFoto;
-    
-        return $this;
     }
 
-    public function setFoto($rutaFoto){
-        $this->setRutaFoto($rutaFoto);
-    }
-    
     /**
      * Get rutaFoto
      *
-     * @return string 
+     * @return string
      */
     public function getRutaFoto()
     {
         return $this->rutaFoto;
     }
-    
-    public function getFoto(){
-        return $this->getRutaFoto();
+
+    /**
+     * Set foto.
+     *
+     * @param UploadedFile $foto
+     */
+    public function setFoto(UploadedFile $foto = null)
+    {
+        $this->foto = $foto;
+    }
+
+    /**
+     * Get foto.
+     *
+     * @return UploadedFile
+     */
+    public function getFoto()
+    {
+        return $this->foto;
     }
 
     /**
      * Set precio
      *
-     * @param float $precio
-     * @return Oferta
+     * @param decimal $precio
      */
     public function setPrecio($precio)
     {
         $this->precio = $precio;
-    
-        return $this;
     }
 
     /**
      * Get precio
      *
-     * @return float 
+     * @return decimal
      */
     public function getPrecio()
     {
@@ -296,20 +310,17 @@ class Oferta
     /**
      * Set descuento
      *
-     * @param float $descuento
-     * @return Oferta
+     * @param decimal $descuento
      */
     public function setDescuento($descuento)
     {
         $this->descuento = $descuento;
-    
-        return $this;
     }
 
     /**
      * Get descuento
      *
-     * @return float 
+     * @return decimal
      */
     public function getDescuento()
     {
@@ -319,20 +330,17 @@ class Oferta
     /**
      * Set fechaPublicacion
      *
-     * @param \DateTime $fechaPublicacion
-     * @return Oferta
+     * @param datetime $fechaPublicacion
      */
     public function setFechaPublicacion($fechaPublicacion)
     {
         $this->fechaPublicacion = $fechaPublicacion;
-    
-        return $this;
     }
 
     /**
      * Get fechaPublicacion
      *
-     * @return \DateTime 
+     * @return datetime
      */
     public function getFechaPublicacion()
     {
@@ -342,20 +350,17 @@ class Oferta
     /**
      * Set fechaExpiracion
      *
-     * @param \DateTime $fechaExpiracion
-     * @return Oferta
+     * @param datetime $fechaExpiracion
      */
     public function setFechaExpiracion($fechaExpiracion)
     {
         $this->fechaExpiracion = $fechaExpiracion;
-    
-        return $this;
     }
 
     /**
      * Get fechaExpiracion
      *
-     * @return \DateTime 
+     * @return datetime
      */
     public function getFechaExpiracion()
     {
@@ -366,19 +371,16 @@ class Oferta
      * Set compras
      *
      * @param integer $compras
-     * @return Oferta
      */
     public function setCompras($compras)
     {
         $this->compras = $compras;
-    
-        return $this;
     }
 
     /**
      * Get compras
      *
-     * @return integer 
+     * @return integer
      */
     public function getCompras()
     {
@@ -386,22 +388,39 @@ class Oferta
     }
 
     /**
+     * Set umbral
+     *
+     * @param integer $umbral
+     */
+    public function setUmbral($umbral)
+    {
+        $this->umbral = $umbral;
+    }
+
+    /**
+     * Get umbral
+     *
+     * @return integer
+     */
+    public function getUmbral()
+    {
+        return $this->umbral;
+    }
+
+    /**
      * Set revisada
      *
      * @param boolean $revisada
-     * @return Oferta
      */
     public function setRevisada($revisada)
     {
         $this->revisada = $revisada;
-    
-        return $this;
     }
 
     /**
      * Get revisada
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getRevisada()
     {
@@ -411,20 +430,17 @@ class Oferta
     /**
      * Set ciudad
      *
-     * @param \Cupon\CiudadBundle\Entity\Ciudad $ciudad
-     * @return Oferta
+     * @param Cupon\CiudadBundle\Entity\Ciudad $ciudad
      */
-    public function setCiudad(\Cupon\CiudadBundle\Entity\Ciudad $ciudad = null)
+    public function setCiudad(\Cupon\CiudadBundle\Entity\Ciudad $ciudad)
     {
         $this->ciudad = $ciudad;
-    
-        return $this;
     }
 
     /**
      * Get ciudad
      *
-     * @return \Cupon\CiudadBundle\Entity\Ciudad 
+     * @return Cupon\CiudadBundle\Entity\Ciudad
      */
     public function getCiudad()
     {
@@ -434,46 +450,20 @@ class Oferta
     /**
      * Set tienda
      *
-     * @param \Cupon\TiendaBundle\Entity\Tienda $tienda
-     * @return Oferta
+     * @param Cupon\TiendaBundle\Entity\Tienda $tienda
      */
-    public function setTienda(\Cupon\TiendaBundle\Entity\Tienda $tienda = null)
+    public function setTienda(\Cupon\TiendaBundle\Entity\Tienda $tienda)
     {
         $this->tienda = $tienda;
-    
-        return $this;
     }
 
     /**
      * Get tienda
      *
-     * @return \Cupon\TiendaBundle\Entity\Tienda 
+     * @return Cupon\TiendaBundle\Entity\Tienda
      */
     public function getTienda()
     {
         return $this->tienda;
-    }
-
-    /**
-     * Set umbral
-     *
-     * @param integer $umbral
-     * @return Oferta
-     */
-    public function setUmbral($umbral)
-    {
-        $this->umbral = $umbral;
-    
-        return $this;
-    }
-
-    /**
-     * Get umbral
-     *
-     * @return integer 
-     */
-    public function getUmbral()
-    {
-        return $this->umbral;
     }
 }

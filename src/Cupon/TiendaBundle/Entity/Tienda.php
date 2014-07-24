@@ -6,11 +6,12 @@ namespace Cupon\TiendaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Cupon\OfertaBundle\Util\Util;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /** 
  * @ORM\Entity(repositoryClass="Cupon\TiendaBundle\Entity\TiendaRepository") 
  */
-class Tienda {
+class Tienda implements UserInterface{
 
     /**
      * @ORM\Id
@@ -244,5 +245,19 @@ class Tienda {
     public function getCiudad()
     {
         return $this->ciudad;
+    }
+
+    function eraseCredentials()
+    {
+    }
+ 
+    function getRoles()
+    {
+        return array('ROLE_TIENDA');
+    }
+ 
+    function getUsername()
+    {
+        return $this->getLogin();
     }
 }
