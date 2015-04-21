@@ -1,0 +1,5 @@
+# src/Cupon/BackendBundle/Resources/config/routing.yml
+
+backend_ciudad_cambiar:
+    path:     /cambiar-a-{ciudad}
+    defaults: { _controller: BackendBundle:Default:ciudadCambiar }
