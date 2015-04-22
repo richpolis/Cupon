@@ -1,0 +1,38 @@
+{# src/Cupon/BackendBundle/Resources/views/Ciudad/ver.html.twig #}
+{% extends 'BackendBundle::backend.html.twig' %}
+ 
+{% block id 'ciudad' %}
+{% block title %}Datos de la ciudad {{ ciudad.nombre }}{% endblock %}
+ 
+{% block article %}
+<h1>{{ block('title') }}</h1>
+ 
+<table>
+    <tbody>
+        <tr>
+            <th>ID</th>
+            <td>{{ ciudad.id }}</td>
+        </tr>
+        <tr>
+            <th>Nombre</th>
+            <td>{{ ciudad.nombre }}</td>
+        </tr>
+        <tr>
+            <th>Slug</th>
+            <td>{{ ciudad.slug }}</td>
+        </tr>
+    </tbody>
+</table>
+ 
+<ul>
+    <li>
+        <a href="{{ path('backend_ciudad') }}">Volver al listado</a>
+    </li>
+    <li>
+        <a href="{{ path('backend_ciudad_actualizar', { 'id': ciudad.id }) }}">Modificar</a>
+    </li>
+    <li>
+        <a href="{{ path('backend_ciudad_borrar', { 'id': ciudad.id }) }}">Borrar</a>
+    </li>
+</ul>
+{% endblock %}

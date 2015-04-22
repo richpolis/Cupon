@@ -22,4 +22,23 @@ class CiudadRepository extends EntityRepository
  
         return $consulta->getResult();
     }
+    
+    public function queryTodasLasOfertas($ciudad)
+    {
+        $em = $this->getEntityManager();
+ 
+        $consulta = $em->createQuery('
+            SELECT o, t FROM OfertaBundle:Oferta o
+              JOIN o.tienda t JOIN o.ciudad c
+             WHERE c.slug = :ciudad
+          ORDER BY o.fecha_publicacion DESC');
+        $consulta->setParameter('ciudad', $ciudad);
+ 
+        return $consulta;
+    }
+ 
+    public function findTodasLasOfertas($ciudad)
+    {
+        return $this->queryTodasLasOfertas($ciudad)->getResult();
+    }
 }

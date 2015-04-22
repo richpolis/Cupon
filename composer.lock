@@ -4,8 +4,43 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "999057037a740fbf165756c23002b0b3",
+    "hash": "cb43aeee36794a99a7c01467f9fa1284",
     "packages": [
+        {
+            "name": "beberlei/DoctrineExtensions",
+            "version": "v0.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/beberlei/DoctrineExtensions.git",
+                "reference": "90a82c62f4513d580e1be6f0256889d85f278aa9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/beberlei/DoctrineExtensions/zipball/90a82c62f4513d580e1be6f0256889d85f278aa9",
+                "reference": "90a82c62f4513d580e1be6f0256889d85f278aa9",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "doctrine/orm": "<2.2",
+                "phpunit/phpunit": "~4.5",
+                "zf1/zend-date": "~1.12",
+                "zf1/zend-registry": "~1.12"
+            },
+            "suggest": {
+                "zf1/zend-date": "Alternative to DateTime"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "DoctrineExtensions": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "time": "2015-03-15 12:15:09"
+        },
         {
             "name": "doctrine/annotations",
             "version": "v1.1.2",
@@ -814,6 +849,52 @@
                 "uploadable"
             ],
             "time": "2014-01-12 16:34:06"
+        },
+        {
+            "name": "ideup/simple-paginator-bundle",
+            "version": "dev-master",
+            "target-dir": "Ideup/SimplePaginatorBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/javiacei/IdeupSimplePaginatorBundle.git",
+                "reference": "12639a9c75bc403649fc2b2881e190a017d8c5b2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/javiacei/IdeupSimplePaginatorBundle/zipball/12639a9c75bc403649fc2b2881e190a017d8c5b2",
+                "reference": "12639a9c75bc403649fc2b2881e190a017d8c5b2",
+                "shasum": ""
+            },
+            "require": {
+                "beberlei/doctrineextensions": "0.3.0",
+                "php": ">=5.3.0",
+                "symfony/symfony": ">=2.0"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Ideup\\SimplePaginatorBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Francisco Javier Aceituno Lapido",
+                    "email": "fco.javier.aceituno@gmail.com",
+                    "homepage": "https://github.com/javiacei"
+                },
+                {
+                    "name": "Moisés Maciá",
+                    "email": "mmacia@gmail.com",
+                    "homepage": "https://github.com/mmacia"
+                }
+            ],
+            "description": "Symfony 2 paginator bundle.",
+            "keywords": [
+                "paginator",
+                "recordset"
+            ],
+            "time": "2015-03-18 10:17:54"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -1792,22 +1873,19 @@
             "time": "2014-02-13 10:19:29"
         }
     ],
-    "packages-dev": [
-
-    ],
-    "aliases": [
-
-    ],
+    "packages-dev": [],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "doctrine/doctrine-fixtures-bundle": 20,
         "doctrine/data-fixtures": 20,
-        "stof/doctrine-extensions-bundle": 20
+        "stof/doctrine-extensions-bundle": 20,
+        "ideup/simple-paginator-bundle": 20
     },
+    "prefer-stable": false,
+    "prefer-lowest": false,
     "platform": {
         "php": ">=5.3.3"
     },
-    "platform-dev": [
-
-    ]
+    "platform-dev": []
 }
