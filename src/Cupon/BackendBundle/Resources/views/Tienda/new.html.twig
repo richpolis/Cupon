@@ -1,13 +1,13 @@
-{% extends '::base.html.twig' %}
+{% extends 'BackendBundle::backend.html.twig' %}
 
 {% block body -%}
-    <h1>Usuario creation</h1>
+    <h1>Tienda creation</h1>
 
     {{ form(form) }}
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('backend_usuarios') }}">
+        <a href="{{ path('backend_tiendas') }}">
             Back to the list
         </a>
     </li>

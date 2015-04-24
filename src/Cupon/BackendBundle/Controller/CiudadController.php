@@ -1,41 +1,41 @@
 <?php
 
-namespace Cupon\UsuarioBundle\Controller;
+namespace Cupon\BackendBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Cupon\UsuarioBundle\Entity\Usuario;
-use Cupon\UsuarioBundle\Form\UsuarioType;
+use Cupon\CiudadBundle\Entity\Ciudad;
+use Cupon\CiudadBundle\Form\CiudadType;
 
 /**
- * Usuario controller.
+ * Ciudad controller.
  *
  */
-class UsuarioController extends Controller
+class CiudadController extends Controller
 {
 
     /**
-     * Lists all Usuario entities.
+     * Lists all Ciudad entities.
      *
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('UsuarioBundle:Usuario')->findAll();
+        $entities = $em->getRepository('CiudadBundle:Ciudad')->findAll();
 
-        return $this->render('UsuarioBundle:Usuario:index.html.twig', array(
+        return $this->render('CiudadBundle:Ciudad:index.html.twig', array(
             'entities' => $entities,
         ));
     }
     /**
-     * Creates a new Usuario entity.
+     * Creates a new Ciudad entity.
      *
      */
     public function createAction(Request $request)
     {
-        $entity = new Usuario();
+        $entity = new Ciudad();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -44,26 +44,26 @@ class UsuarioController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('backend_usuarios_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('backend_ciudades_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('UsuarioBundle:Usuario:new.html.twig', array(
+        return $this->render('CiudadBundle:Ciudad:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
     }
 
     /**
-    * Creates a form to create a Usuario entity.
+    * Creates a form to create a Ciudad entity.
     *
-    * @param Usuario $entity The entity
+    * @param Ciudad $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createCreateForm(Usuario $entity)
+    private function createCreateForm(Ciudad $entity)
     {
-        $form = $this->createForm(new UsuarioType(), $entity, array(
-            'action' => $this->generateUrl('backend_usuarios_create'),
+        $form = $this->createForm(new CiudadType(), $entity, array(
+            'action' => $this->generateUrl('backend_ciudades_create'),
             'method' => 'POST',
         ));
 
@@ -73,59 +73,59 @@ class UsuarioController extends Controller
     }
 
     /**
-     * Displays a form to create a new Usuario entity.
+     * Displays a form to create a new Ciudad entity.
      *
      */
     public function newAction()
     {
-        $entity = new Usuario();
+        $entity = new Ciudad();
         $form   = $this->createCreateForm($entity);
 
-        return $this->render('UsuarioBundle:Usuario:new.html.twig', array(
+        return $this->render('CiudadBundle:Ciudad:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
     }
 
     /**
-     * Finds and displays a Usuario entity.
+     * Finds and displays a Ciudad entity.
      *
      */
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('UsuarioBundle:Usuario')->find($id);
+        $entity = $em->getRepository('CiudadBundle:Ciudad')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Usuario entity.');
+            throw $this->createNotFoundException('Unable to find Ciudad entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('UsuarioBundle:Usuario:show.html.twig', array(
+        return $this->render('CiudadBundle:Ciudad:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),        ));
     }
 
     /**
-     * Displays a form to edit an existing Usuario entity.
+     * Displays a form to edit an existing Ciudad entity.
      *
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('UsuarioBundle:Usuario')->find($id);
+        $entity = $em->getRepository('CiudadBundle:Ciudad')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Usuario entity.');
+            throw $this->createNotFoundException('Unable to find Ciudad entity.');
         }
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('UsuarioBundle:Usuario:edit.html.twig', array(
+        return $this->render('CiudadBundle:Ciudad:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -133,16 +133,16 @@ class UsuarioController extends Controller
     }
 
     /**
-    * Creates a form to edit a Usuario entity.
+    * Creates a form to edit a Ciudad entity.
     *
-    * @param Usuario $entity The entity
+    * @param Ciudad $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Usuario $entity)
+    private function createEditForm(Ciudad $entity)
     {
-        $form = $this->createForm(new UsuarioType(), $entity, array(
-            'action' => $this->generateUrl('backend_usuarios_update', array('id' => $entity->getId())),
+        $form = $this->createForm(new CiudadType(), $entity, array(
+            'action' => $this->generateUrl('backend_ciudades_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -151,17 +151,17 @@ class UsuarioController extends Controller
         return $form;
     }
     /**
-     * Edits an existing Usuario entity.
+     * Edits an existing Ciudad entity.
      *
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('UsuarioBundle:Usuario')->find($id);
+        $entity = $em->getRepository('CiudadBundle:Ciudad')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Usuario entity.');
+            throw $this->createNotFoundException('Unable to find Ciudad entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -171,17 +171,17 @@ class UsuarioController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('backend_usuarios_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('backend_ciudades_edit', array('id' => $id)));
         }
 
-        return $this->render('UsuarioBundle:Usuario:edit.html.twig', array(
+        return $this->render('CiudadBundle:Ciudad:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
     /**
-     * Deletes a Usuario entity.
+     * Deletes a Ciudad entity.
      *
      */
     public function deleteAction(Request $request, $id)
@@ -191,21 +191,21 @@ class UsuarioController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('UsuarioBundle:Usuario')->find($id);
+            $entity = $em->getRepository('CiudadBundle:Ciudad')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Usuario entity.');
+                throw $this->createNotFoundException('Unable to find Ciudad entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('backend_usuarios'));
+        return $this->redirect($this->generateUrl('backend_ciudades'));
     }
 
     /**
-     * Creates a form to delete a Usuario entity by id.
+     * Creates a form to delete a Ciudad entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -214,7 +214,7 @@ class UsuarioController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('backend_usuarios_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('backend_ciudades_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

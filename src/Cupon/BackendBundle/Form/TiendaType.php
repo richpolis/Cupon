@@ -1,12 +1,12 @@
 <?php
 
-namespace Cupon\UsuarioBundle\Form;
+namespace Cupon\BackendBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class UsuarioType extends AbstractType
+class TiendaType extends AbstractType
 {
         /**
      * @param FormBuilderInterface $builder
@@ -16,16 +16,12 @@ class UsuarioType extends AbstractType
     {
         $builder
             ->add('nombre')
-            ->add('apellidos')
-            ->add('email')
+            ->add('slug')
+            ->add('login')
             ->add('password')
             ->add('salt')
+            ->add('descripcion')
             ->add('direccion')
-            ->add('permiteEmail')
-            ->add('fechaAlta')
-            ->add('fechaNacimiento')
-            ->add('dni')
-            ->add('numeroTarjeta')
             ->add('ciudad')
         ;
     }
@@ -36,7 +32,7 @@ class UsuarioType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Cupon\UsuarioBundle\Entity\Usuario'
+            'data_class' => 'Cupon\TiendaBundle\Entity\Tienda'
         ));
     }
 
@@ -45,6 +41,6 @@ class UsuarioType extends AbstractType
      */
     public function getName()
     {
-        return 'cupon_usuariobundle_usuario';
+        return 'cupon_backendbundle_tienda';
     }
 }

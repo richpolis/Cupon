@@ -1,12 +1,12 @@
 <?php
 
-namespace Cupon\TiendaBundle\Form;
+namespace Cupon\BackendBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class TiendaType extends AbstractType
+class UsuarioType extends AbstractType
 {
         /**
      * @param FormBuilderInterface $builder
@@ -16,12 +16,16 @@ class TiendaType extends AbstractType
     {
         $builder
             ->add('nombre')
-            ->add('slug')
-            ->add('login')
+            ->add('apellidos')
+            ->add('email')
             ->add('password')
             ->add('salt')
-            ->add('descripcion')
             ->add('direccion')
+            ->add('permiteEmail')
+            ->add('fechaAlta')
+            ->add('fechaNacimiento')
+            ->add('dni')
+            ->add('numeroTarjeta')
             ->add('ciudad')
         ;
     }
@@ -32,7 +36,7 @@ class TiendaType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Cupon\TiendaBundle\Entity\Tienda'
+            'data_class' => 'Cupon\UsuarioBundle\Entity\Usuario'
         ));
     }
 
@@ -41,6 +45,6 @@ class TiendaType extends AbstractType
      */
     public function getName()
     {
-        return 'cupon_tiendabundle_tienda';
+        return 'cupon_backendbundle_usuario';
     }
 }

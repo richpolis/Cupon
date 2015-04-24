@@ -1,41 +1,41 @@
 <?php
 
-namespace Cupon\TiendaBundle\Controller;
+namespace Cupon\BackendBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Cupon\TiendaBundle\Entity\Tienda;
-use Cupon\TiendaBundle\Form\TiendaType;
+use Cupon\UsuarioBundle\Entity\Usuario;
+use Cupon\UsuarioBundle\Form\UsuarioType;
 
 /**
- * Tienda controller.
+ * Usuario controller.
  *
  */
-class TiendaController extends Controller
+class UsuarioController extends Controller
 {
 
     /**
-     * Lists all Tienda entities.
+     * Lists all Usuario entities.
      *
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('TiendaBundle:Tienda')->findAll();
+        $entities = $em->getRepository('UsuarioBundle:Usuario')->findAll();
 
-        return $this->render('TiendaBundle:Tienda:index.html.twig', array(
+        return $this->render('UsuarioBundle:Usuario:index.html.twig', array(
             'entities' => $entities,
         ));
     }
     /**
-     * Creates a new Tienda entity.
+     * Creates a new Usuario entity.
      *
      */
     public function createAction(Request $request)
     {
-        $entity = new Tienda();
+        $entity = new Usuario();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -44,26 +44,26 @@ class TiendaController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('backend_tiendas_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('backend_usuarios_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('TiendaBundle:Tienda:new.html.twig', array(
+        return $this->render('UsuarioBundle:Usuario:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
     }
 
     /**
-    * Creates a form to create a Tienda entity.
+    * Creates a form to create a Usuario entity.
     *
-    * @param Tienda $entity The entity
+    * @param Usuario $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createCreateForm(Tienda $entity)
+    private function createCreateForm(Usuario $entity)
     {
-        $form = $this->createForm(new TiendaType(), $entity, array(
-            'action' => $this->generateUrl('backend_tiendas_create'),
+        $form = $this->createForm(new UsuarioType(), $entity, array(
+            'action' => $this->generateUrl('backend_usuarios_create'),
             'method' => 'POST',
         ));
 
@@ -73,59 +73,59 @@ class TiendaController extends Controller
     }
 
     /**
-     * Displays a form to create a new Tienda entity.
+     * Displays a form to create a new Usuario entity.
      *
      */
     public function newAction()
     {
-        $entity = new Tienda();
+        $entity = new Usuario();
         $form   = $this->createCreateForm($entity);
 
-        return $this->render('TiendaBundle:Tienda:new.html.twig', array(
+        return $this->render('UsuarioBundle:Usuario:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
     }
 
     /**
-     * Finds and displays a Tienda entity.
+     * Finds and displays a Usuario entity.
      *
      */
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('TiendaBundle:Tienda')->find($id);
+        $entity = $em->getRepository('UsuarioBundle:Usuario')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Tienda entity.');
+            throw $this->createNotFoundException('Unable to find Usuario entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('TiendaBundle:Tienda:show.html.twig', array(
+        return $this->render('UsuarioBundle:Usuario:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),        ));
     }
 
     /**
-     * Displays a form to edit an existing Tienda entity.
+     * Displays a form to edit an existing Usuario entity.
      *
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('TiendaBundle:Tienda')->find($id);
+        $entity = $em->getRepository('UsuarioBundle:Usuario')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Tienda entity.');
+            throw $this->createNotFoundException('Unable to find Usuario entity.');
         }
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('TiendaBundle:Tienda:edit.html.twig', array(
+        return $this->render('UsuarioBundle:Usuario:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -133,16 +133,16 @@ class TiendaController extends Controller
     }
 
     /**
-    * Creates a form to edit a Tienda entity.
+    * Creates a form to edit a Usuario entity.
     *
-    * @param Tienda $entity The entity
+    * @param Usuario $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Tienda $entity)
+    private function createEditForm(Usuario $entity)
     {
-        $form = $this->createForm(new TiendaType(), $entity, array(
-            'action' => $this->generateUrl('backend_tiendas_update', array('id' => $entity->getId())),
+        $form = $this->createForm(new UsuarioType(), $entity, array(
+            'action' => $this->generateUrl('backend_usuarios_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -151,17 +151,17 @@ class TiendaController extends Controller
         return $form;
     }
     /**
-     * Edits an existing Tienda entity.
+     * Edits an existing Usuario entity.
      *
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('TiendaBundle:Tienda')->find($id);
+        $entity = $em->getRepository('UsuarioBundle:Usuario')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Tienda entity.');
+            throw $this->createNotFoundException('Unable to find Usuario entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -171,17 +171,17 @@ class TiendaController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('backend_tiendas_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('backend_usuarios_edit', array('id' => $id)));
         }
 
-        return $this->render('TiendaBundle:Tienda:edit.html.twig', array(
+        return $this->render('UsuarioBundle:Usuario:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
     /**
-     * Deletes a Tienda entity.
+     * Deletes a Usuario entity.
      *
      */
     public function deleteAction(Request $request, $id)
@@ -191,21 +191,21 @@ class TiendaController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('TiendaBundle:Tienda')->find($id);
+            $entity = $em->getRepository('UsuarioBundle:Usuario')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Tienda entity.');
+                throw $this->createNotFoundException('Unable to find Usuario entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('backend_tiendas'));
+        return $this->redirect($this->generateUrl('backend_usuarios'));
     }
 
     /**
-     * Creates a form to delete a Tienda entity by id.
+     * Creates a form to delete a Usuario entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -214,7 +214,7 @@ class TiendaController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('backend_tiendas_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('backend_usuarios_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
