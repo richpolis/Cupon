@@ -8,20 +8,22 @@ backend_portada:
     path:     /
     defaults: { _controller: BackendBundle:Oferta:index }
     
-    
 BackendOferta:
-    resource: "@BackendBundle/Resources/config/routing/oferta.yml"
+    resource: "@BackendBundle/Resources/config/oferta.yml"
     prefix:   /ofertas
-    
-    
+
 BackendCiudad:
-    resource: "@BackendBundle/Resources/config/routing/ciudad.yml"
-    prefix:   /ciudad
-    
+    resource: "@BackendBundle/Resources/config/ciudad.yml"
+    prefix:   /ciudades
+
 BackendTienda:
-    resource: "@BackendBundle/Resources/config/routing/tienda.yml"
-    prefix:   /tienda
+    resource: "@BackendBundle/Resources/config/tienda.yml"
+    prefix:   /tiendas
     
 BackendUsuario:
-    resource: "@BackendBundle/Resources/config/routing/usuario.yml"
-    prefix:   /usuario
+    resource: "@BackendBundle/Resources/config/usuario.yml"
+    prefix:   /usuarios
+
+BackendVenta:
+    resource: "@BackendBundle/Resources/config/venta.yml"
+    prefix:   /ventas

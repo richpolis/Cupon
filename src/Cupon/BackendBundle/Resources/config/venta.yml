@@ -1,0 +1,30 @@
+backend_ventas:
+    pattern:  /
+    defaults: { _controller: "BackendBundle:Venta:index" }
+
+backend_ventas_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "BackendBundle:Venta:show" }
+
+backend_ventas_new:
+    pattern:  /new
+    defaults: { _controller: "BackendBundle:Venta:new" }
+
+backend_ventas_create:
+    pattern:  /create
+    defaults: { _controller: "BackendBundle:Venta:create" }
+    requirements: { _method: post }
+
+backend_ventas_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "BackendBundle:Venta:edit" }
+
+backend_ventas_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "BackendBundle:Venta:update" }
+    requirements: { _method: post|put }
+
+backend_ventas_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "BackendBundle:Venta:delete" }
+    requirements: { _method: post|delete }

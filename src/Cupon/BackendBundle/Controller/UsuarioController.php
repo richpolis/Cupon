@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Cupon\UsuarioBundle\Entity\Usuario;
-use Cupon\UsuarioBundle\Form\UsuarioType;
+use Cupon\BackendBundle\Form\UsuarioType;
 
 /**
  * Usuario controller.
@@ -25,7 +25,7 @@ class UsuarioController extends Controller
 
         $entities = $em->getRepository('UsuarioBundle:Usuario')->findAll();
 
-        return $this->render('UsuarioBundle:Usuario:index.html.twig', array(
+        return $this->render('BackendBundle:Usuario:index.html.twig', array(
             'entities' => $entities,
         ));
     }
@@ -47,7 +47,7 @@ class UsuarioController extends Controller
             return $this->redirect($this->generateUrl('backend_usuarios_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('UsuarioBundle:Usuario:new.html.twig', array(
+        return $this->render('BackendBundle:Usuario:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
@@ -81,7 +81,7 @@ class UsuarioController extends Controller
         $entity = new Usuario();
         $form   = $this->createCreateForm($entity);
 
-        return $this->render('UsuarioBundle:Usuario:new.html.twig', array(
+        return $this->render('BackendBundle:Usuario:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
@@ -103,7 +103,7 @@ class UsuarioController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('UsuarioBundle:Usuario:show.html.twig', array(
+        return $this->render('BackendBundle:Usuario:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),        ));
     }
@@ -125,7 +125,7 @@ class UsuarioController extends Controller
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('UsuarioBundle:Usuario:edit.html.twig', array(
+        return $this->render('BackendBundle:Usuario:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -174,7 +174,7 @@ class UsuarioController extends Controller
             return $this->redirect($this->generateUrl('backend_usuarios_edit', array('id' => $id)));
         }
 
-        return $this->render('UsuarioBundle:Usuario:edit.html.twig', array(
+        return $this->render('BackendBundle:Usuario:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),

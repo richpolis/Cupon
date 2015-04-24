@@ -1,6 +1,6 @@
 {% extends 'BackendBundle::backend.html.twig' %}
 
-{% block body -%}
+{% block article -%}
     <h1>Oferta list</h1>
  
 <table class="records_list">
@@ -21,7 +21,7 @@
     <tbody>
     {% for entity in entities %}
         <tr>
-            <td><a href="{{ path('ofertas_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+            <td><a href="{{ path('backend_ofertas_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.nombre }}</td>
             <td>{{ entity.precio }}</td>
             <td>{{ entity.descuento }}</td>
@@ -40,8 +40,8 @@
             <td>{{ entity.revisada }}</td>
             <td>
                 <ul>
-                    <li><a href="{{ path('ofertas_show',{ 'id': entity.id }) }}">show</a></li>
-                    <li><a href="{{ path('ofertas_edit',{ 'id': entity.id }) }}">edit</a></li>
+                    <li><a href="{{ path('backend_ofertas_show',{ 'id': entity.id }) }}">show</a></li>
+                    <li><a href="{{ path('backend_ofertas_edit',{ 'id': entity.id }) }}">edit</a></li>
                 </ul>
             </td>
         </tr>
@@ -50,7 +50,7 @@
 </table>
  
 <ul>
-    <li><a href="{{ path('ofertas_new') }}">Create a new entry</a></li>
+    <li><a href="{{ path('backend_ofertas_new') }}">Create a new entry</a></li>
 </ul>
 <ul class="paginador">
   {% if paginador.currentPage > 1 %}

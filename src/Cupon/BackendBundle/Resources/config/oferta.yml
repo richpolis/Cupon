@@ -1,30 +1,30 @@
-ofertas:
+backend_ofertas:
     pattern:  /
-    defaults: { _controller: "OfertaBundle:Oferta:index" }
+    defaults: { _controller: "BackendBundle:Oferta:index" }
 
-ofertas_show:
+backend_ofertas_show:
     pattern:  /{id}/show
-    defaults: { _controller: "OfertaBundle:Oferta:show" }
+    defaults: { _controller: "BackendBundle:Oferta:show" }
 
-ofertas_new:
+backend_ofertas_new:
     pattern:  /new
-    defaults: { _controller: "OfertaBundle:Oferta:new" }
+    defaults: { _controller: "BackendBundle:Oferta:new" }
 
-ofertas_create:
+backend_ofertas_create:
     pattern:  /create
-    defaults: { _controller: "OfertaBundle:Oferta:create" }
+    defaults: { _controller: "BackendBundle:Oferta:create" }
     requirements: { _method: post }
 
-ofertas_edit:
+backend_ofertas_edit:
     pattern:  /{id}/edit
-    defaults: { _controller: "OfertaBundle:Oferta:edit" }
+    defaults: { _controller: "BackendBundle:Oferta:edit" }
 
-ofertas_update:
+backend_ofertas_update:
     pattern:  /{id}/update
-    defaults: { _controller: "OfertaBundle:Oferta:update" }
+    defaults: { _controller: "BackendBundle:Oferta:update" }
     requirements: { _method: post|put }
 
-ofertas_delete:
+backend_ofertas_delete:
     pattern:  /{id}/delete
-    defaults: { _controller: "OfertaBundle:Oferta:delete" }
+    defaults: { _controller: "BackendBundle:Oferta:delete" }
     requirements: { _method: post|delete }
