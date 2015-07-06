@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Cupon\TiendaBundle\Entity\Tienda;
-use Cupon\TiendaBundle\Form\TiendaType;
+use Cupon\BackendBundle\Form\TiendaType;
 
 /**
  * Tienda controller.
@@ -25,7 +25,7 @@ class TiendaController extends Controller
 
         $entities = $em->getRepository('TiendaBundle:Tienda')->findAll();
 
-        return $this->render('TiendaBundle:Tienda:index.html.twig', array(
+        return $this->render('BackendBundle:Tienda:index.html.twig', array(
             'entities' => $entities,
         ));
     }
@@ -47,7 +47,7 @@ class TiendaController extends Controller
             return $this->redirect($this->generateUrl('backend_tiendas_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('TiendaBundle:Tienda:new.html.twig', array(
+        return $this->render('BackendBundle:Tienda:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
@@ -81,7 +81,7 @@ class TiendaController extends Controller
         $entity = new Tienda();
         $form   = $this->createCreateForm($entity);
 
-        return $this->render('TiendaBundle:Tienda:new.html.twig', array(
+        return $this->render('BackendBundle:Tienda:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
@@ -103,7 +103,7 @@ class TiendaController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('TiendaBundle:Tienda:show.html.twig', array(
+        return $this->render('BackendBundle:Tienda:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),        ));
     }
@@ -125,7 +125,7 @@ class TiendaController extends Controller
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('TiendaBundle:Tienda:edit.html.twig', array(
+        return $this->render('BackendBundle:Tienda:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -174,7 +174,7 @@ class TiendaController extends Controller
             return $this->redirect($this->generateUrl('backend_tiendas_edit', array('id' => $id)));
         }
 
-        return $this->render('TiendaBundle:Tienda:edit.html.twig', array(
+        return $this->render('BackendBundle:Tienda:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),

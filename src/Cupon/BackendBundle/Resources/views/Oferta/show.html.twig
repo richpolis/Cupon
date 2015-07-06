@@ -1,6 +1,6 @@
 {% extends 'BackendBundle::backend.html.twig' %}
 
-{% block body -%}
+{% block article -%}
     <h1>Oferta</h1>
 
     <table class="record_properties">
@@ -62,12 +62,12 @@
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('ofertas') }}">
+        <a href="{{ path('backend_ofertas') }}">
             Back to the list
         </a>
     </li>
     <li>
-        <a href="{{ path('ofertas_edit', { 'id': entity.id }) }}">
+        <a href="{{ path('backend_ofertas_edit', { 'id': entity.id }) }}">
             Edit
         </a>
     </li>

@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Cupon\CiudadBundle\Entity\Ciudad;
-use Cupon\CiudadBundle\Form\CiudadType;
+use Cupon\BackendBundle\Form\CiudadType;
 
 /**
  * Ciudad controller.
@@ -25,7 +25,7 @@ class CiudadController extends Controller
 
         $entities = $em->getRepository('CiudadBundle:Ciudad')->findAll();
 
-        return $this->render('CiudadBundle:Ciudad:index.html.twig', array(
+        return $this->render('BackendBundle:Ciudad:index.html.twig', array(
             'entities' => $entities,
         ));
     }
@@ -47,7 +47,7 @@ class CiudadController extends Controller
             return $this->redirect($this->generateUrl('backend_ciudades_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('CiudadBundle:Ciudad:new.html.twig', array(
+        return $this->render('BackendBundle:Ciudad:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
@@ -81,7 +81,7 @@ class CiudadController extends Controller
         $entity = new Ciudad();
         $form   = $this->createCreateForm($entity);
 
-        return $this->render('CiudadBundle:Ciudad:new.html.twig', array(
+        return $this->render('BackendBundle:Ciudad:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
@@ -103,7 +103,7 @@ class CiudadController extends Controller
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('CiudadBundle:Ciudad:show.html.twig', array(
+        return $this->render('BackendBundle:Ciudad:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),        ));
     }
@@ -125,7 +125,7 @@ class CiudadController extends Controller
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('CiudadBundle:Ciudad:edit.html.twig', array(
+        return $this->render('BackendBundle:Ciudad:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -174,7 +174,7 @@ class CiudadController extends Controller
             return $this->redirect($this->generateUrl('backend_ciudades_edit', array('id' => $id)));
         }
 
-        return $this->render('CiudadBundle:Ciudad:edit.html.twig', array(
+        return $this->render('BackendBundle:Ciudad:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),

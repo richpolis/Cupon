@@ -1,13 +1,13 @@
 {% extends 'BackendBundle::backend.html.twig' %}
 
-{% block body -%}
+{% block article -%}
     <h1>Oferta creation</h1>
 
     {{ form(form) }}
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('ofertas') }}">
+        <a href="{{ path('backend_ofertas') }}">
             Back to the list
         </a>
     </li>

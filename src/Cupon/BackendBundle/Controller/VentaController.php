@@ -5,44 +5,37 @@ namespace Cupon\BackendBundle\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Cupon\OfertaBundle\Entity\Oferta;
-use Cupon\BackendBundle\Form\OfertaType;
+use Cupon\OfertaBundle\Entity\Venta;
+use Cupon\BackendBundle\Form\VentaType;
 
 /**
- * Oferta controller.
+ * Venta controller.
  *
  */
-class OfertaController extends Controller
+class VentaController extends Controller
 {
 
     /**
-     * Lists all Oferta entities.
+     * Lists all Venta entities.
      *
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
 
-        $paginador = $this->get('ideup.simple_paginator');
-		
-		$slug = $this->getRequest()->getSession()->get('ciudad','');
- 
-        $entities = $paginador->paginate(
-          $em->getRepository('CiudadBundle:Ciudad')->queryTodasLasOfertas($slug)
-        )->getResult();
- 
-        return $this->render('BackendBundle:Oferta:index.html.twig', array(
-            'entities'  => $entities,
-            'paginador' => $paginador
+        $entities = $em->getRepository('VentaBundle:Venta')->findAll();
+
+        return $this->render('BackendBundle:Venta:index.html.twig', array(
+            'entities' => $entities,
         ));
     }
     /**
-     * Creates a new Oferta entity.
+     * Creates a new Venta entity.
      *
      */
     public function createAction(Request $request)
     {
-        $entity = new Oferta();
+        $entity = new Venta();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -51,26 +44,26 @@ class OfertaController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('backend_ofertas_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('backend_ventas_show', array('id' => $entity->getId())));
         }
 
-        return $this->render('BackendBundle:Oferta:new.html.twig', array(
+        return $this->render('BackendBundle:Venta:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
     }
 
     /**
-    * Creates a form to create a Oferta entity.
+    * Creates a form to create a Venta entity.
     *
-    * @param Oferta $entity The entity
+    * @param Venta $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createCreateForm(Oferta $entity)
+    private function createCreateForm(Venta $entity)
     {
-        $form = $this->createForm(new OfertaType(), $entity, array(
-            'action' => $this->generateUrl('backend_ofertas_create'),
+        $form = $this->createForm(new VentaType(), $entity, array(
+            'action' => $this->generateUrl('backend_ventas_create'),
             'method' => 'POST',
         ));
 
@@ -80,59 +73,59 @@ class OfertaController extends Controller
     }
 
     /**
-     * Displays a form to create a new Oferta entity.
+     * Displays a form to create a new Venta entity.
      *
      */
     public function newAction()
     {
-        $entity = new Oferta();
+        $entity = new Venta();
         $form   = $this->createCreateForm($entity);
 
-        return $this->render('BackendBundle:Oferta:new.html.twig', array(
+        return $this->render('BackendBundle:Venta:new.html.twig', array(
             'entity' => $entity,
             'form'   => $form->createView(),
         ));
     }
 
     /**
-     * Finds and displays a Oferta entity.
+     * Finds and displays a Venta entity.
      *
      */
     public function showAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('OfertaBundle:Oferta')->find($id);
+        $entity = $em->getRepository('VentaBundle:Venta')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Oferta entity.');
+            throw $this->createNotFoundException('Unable to find Venta entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('BackendBundle:Oferta:show.html.twig', array(
+        return $this->render('BackendBundle:Venta:show.html.twig', array(
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),        ));
     }
 
     /**
-     * Displays a form to edit an existing Oferta entity.
+     * Displays a form to edit an existing Venta entity.
      *
      */
     public function editAction($id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('OfertaBundle:Oferta')->find($id);
+        $entity = $em->getRepository('VentaBundle:Venta')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Oferta entity.');
+            throw $this->createNotFoundException('Unable to find Venta entity.');
         }
 
         $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
-        return $this->render('BackendBundle:Oferta:edit.html.twig', array(
+        return $this->render('BackendBundle:Venta:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
@@ -140,16 +133,16 @@ class OfertaController extends Controller
     }
 
     /**
-    * Creates a form to edit a Oferta entity.
+    * Creates a form to edit a Venta entity.
     *
-    * @param Oferta $entity The entity
+    * @param Venta $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Oferta $entity)
+    private function createEditForm(Venta $entity)
     {
-        $form = $this->createForm(new OfertaType(), $entity, array(
-            'action' => $this->generateUrl('backend_ofertas_update', array('id' => $entity->getId())),
+        $form = $this->createForm(new VentaType(), $entity, array(
+            'action' => $this->generateUrl('backend_ventas_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -158,17 +151,17 @@ class OfertaController extends Controller
         return $form;
     }
     /**
-     * Edits an existing Oferta entity.
+     * Edits an existing Venta entity.
      *
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('OfertaBundle:Oferta')->find($id);
+        $entity = $em->getRepository('VentaBundle:Venta')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Oferta entity.');
+            throw $this->createNotFoundException('Unable to find Venta entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -178,17 +171,17 @@ class OfertaController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('backend_ofertas_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('backend_ventas_edit', array('id' => $id)));
         }
 
-        return $this->render('BackendBundle:Oferta:edit.html.twig', array(
+        return $this->render('BackendBundle:Venta:edit.html.twig', array(
             'entity'      => $entity,
             'edit_form'   => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
     /**
-     * Deletes a Oferta entity.
+     * Deletes a Venta entity.
      *
      */
     public function deleteAction(Request $request, $id)
@@ -198,21 +191,21 @@ class OfertaController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('OfertaBundle:Oferta')->find($id);
+            $entity = $em->getRepository('VentaBundle:Venta')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Oferta entity.');
+                throw $this->createNotFoundException('Unable to find Venta entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('ofertas'));
+        return $this->redirect($this->generateUrl('backend_ventas'));
     }
 
     /**
-     * Creates a form to delete a Oferta entity by id.
+     * Creates a form to delete a Venta entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -221,7 +214,7 @@ class OfertaController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('backend_ofertas_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('backend_ventas_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

@@ -31,7 +31,7 @@ class CiudadRepository extends EntityRepository
             SELECT o, t FROM OfertaBundle:Oferta o
               JOIN o.tienda t JOIN o.ciudad c
              WHERE c.slug = :ciudad
-          ORDER BY o.fecha_publicacion DESC');
+          ORDER BY o.fechaPublicacion DESC');
         $consulta->setParameter('ciudad', $ciudad);
  
         return $consulta;
