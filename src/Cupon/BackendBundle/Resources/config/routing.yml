@@ -10,18 +10,18 @@ backend_portada:
     
     
 BackendOferta:
-    resource: "@BackendBundle/Resources/config/routing/oferta.yml"
+    resource: "@BackendBundle/Resources/config/oferta.yml"
     prefix:   /ofertas
     
     
 BackendCiudad:
-    resource: "@BackendBundle/Resources/config/routing/ciudad.yml"
+    resource: "@BackendBundle/Resources/config/ciudad.yml"
     prefix:   /ciudad
     
 BackendTienda:
-    resource: "@BackendBundle/Resources/config/routing/tienda.yml"
+    resource: "@BackendBundle/Resources/config/tienda.yml"
     prefix:   /tienda
     
 BackendUsuario:
-    resource: "@BackendBundle/Resources/config/routing/usuario.yml"
+    resource: "@BackendBundle/Resources/config/usuario.yml"
     prefix:   /usuario

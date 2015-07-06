@@ -7,7 +7,7 @@
     {{ oferta.descripcion | mostrar_como_lista }}
  
     {% if not expirada %}
-    <a class="boton" href="{{ path('comprar', { 'ciudad': oferta.ciudad.slug, 'slug': oferta.slug }) }}">{{ "Comprar" | trans }}</a>
+    <a class="boton" href="{{ path('oferta', { 'ciudad': oferta.ciudad.slug, 'slug': oferta.slug }) }}">{{ "Comprar" | trans }}</a>
     {% endif %}
 </section>
 

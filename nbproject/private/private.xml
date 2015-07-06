@@ -3,7 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/richpolis/Proyectos/php/sf2/Cupon/app/AppKernel.php</file>
+            <file>file:/Users/richpolis/Proyectos/php/sf2/Cupon/src/Cupon/BackendBundle/Controller/OfertaController.php</file>
+            <file>file:/Users/richpolis/Proyectos/php/sf2/Cupon/app/config/config.yml</file>
+            <file>file:/Users/richpolis/Proyectos/php/sf2/Cupon/app/config/security.yml</file>
+            <file>file:/Users/richpolis/Proyectos/php/sf2/Cupon/app/config/routing.yml</file>
+            <file>file:/Users/richpolis/Proyectos/php/sf2/Cupon/src/Cupon/BackendBundle/Resources/config/routing.yml</file>
+            <file>file:/Users/richpolis/Proyectos/php/sf2/Cupon/src/Cupon/OfertaBundle/Resources/views/Default/includes/oferta.html.twig</file>
+            <file>file:/Users/richpolis/Proyectos/php/sf2/Cupon/app/config/services.yml</file>
+            <file>file:/Users/richpolis/Proyectos/php/sf2/Cupon/src/Cupon/OfertaBundle/Twig/Extension/CuponExtension.php</file>
+            <file>file:/Users/richpolis/Proyectos/php/sf2/Cupon/src/Cupon/OfertaBundle/Resources/views/Default/includes/minioferta.html.twig</file>
         </group>
     </open-files>
 </project-private>
